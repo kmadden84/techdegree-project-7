@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import './index.css';
+import {Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
+import NoResults from './components/NoResults';
+import axios from 'axios';
+import ImgList from './components/ImgList';
 
-function App() {
+
+const App = ({match}) => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <BrowserRouter>
+    <Switch>
+      <Route exact path="/" render={(props)=><ImgList {...props}  />} />
+      <Route path={`${match.path}cats`} render={(props)=><ImgList data="cats" {...props}/>} />
+      <Route path={`${match.path}dogs`} render={(props)=><ImgList data="dogs" {...props}/>} />
+      <Route path={`${match.path}computers`} render={(props)=><ImgList data="computers" {...props}/>} />
+      <Route path='*' exact={true} component={NoResults} />
+      </Switch>
+</BrowserRouter>
+  )
+  }
+
+
 
 export default App;
