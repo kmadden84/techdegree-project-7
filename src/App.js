@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './index.css';
-import {Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
+import {Route, Switch, BrowserRouter} from 'react-router-dom';
 import NoResults from './components/NoResults';
-import axios from 'axios';
 import ImgList from './components/ImgList';
 
 
 const App = ({match}) => {
 
-  return (
-    <BrowserRouter>
+return (
+<BrowserRouter>
     <Switch>
       <Route exact path="/" render={(props)=><ImgList {...props}  />} />
       <Route path={`${match.path}cats`} render={(props)=><ImgList data="cats" {...props}/>} />

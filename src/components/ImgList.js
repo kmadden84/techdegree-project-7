@@ -4,18 +4,11 @@ import NoResults from './NoResults'
 import NavToggle from './NavToggle';
 import Search from './Search';
 import axios from 'axios';
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  NavLink
-} from 'react-router-dom';
 
 
 export default class ImgList extends Component {
   constructor(props) {
     super(props);
-    var topic = props.match.path.topic;
     this.state = {
       data: [],
       id: [],
@@ -23,20 +16,17 @@ export default class ImgList extends Component {
     }
   }
   componentDidMount(props) {
- 
-    
     (this.props.data)
       ? this.performSearch(this.props.data)
       : this.performSearch('cats')
   }
 
   componentDidUpdate(props) {
-    console.log(props);
-        if (props.data !== this.props.data) {
-    (this.props.data)
-      ? this.performSearch(this.props.data)
-      : this.performSearch('cats')
-        }
+    if (props.data !== this.props.data) {
+      (this.props.data)
+        ? this.performSearch(this.props.data)
+        : this.performSearch('cats')
+    }
   }
 
   performSearch = (query) => {
@@ -46,46 +36,46 @@ export default class ImgList extends Component {
         const results = [];
         const keys = [];
         if (imgs !== null) {
-        imgs.map(photo => {
-          var farm = photo.farm;
-          var server = photo.server;
-          var photoID = photo.id;
-          var secret = photo.secret;
-          var url = `https://farm${farm}.staticflickr.com/${server}/${photoID}_${secret}_m.jpg` 
-          results.push(url)
-          keys.push(photoID)
-        })
-        this.setState({
-          data: results,
-          id: keys,
-          loader: false
-        })
-      } 
-      else {
+          imgs.map(photo => {
+            var farm = photo.farm;
+            var server = photo.server;
+            var photoID = photo.id;
+            var secret = photo.secret;
+            var url = `https://farm${farm}.staticflickr.com/${server}/${photoID}_${secret}_m.jpg`
+            results.push(url)
+            keys.push(photoID)
+          })
           this.setState({
-        data: '',
-        id: '',
-        loader: false
-      })
-    }
+            data: results,
+            id: keys,
+            loader: false
+          })
+        }
+        else {
+          this.setState({
+            data: '',
+            id: '',
+            loader: false
+          })
+        }
       })
   }
   onSearchChange = e => {
-    this.setState({ 
-      searchText: e.target.value 
+    this.setState({
+      searchText: e.target.value
     })
   }
   render(props) {
-    const {data} = this.state;
+    const { data } = this.state;
     let images;
 
     if (this.state.loader) {
       images = `Loading....`;
-    } 
+    }
     else if (!this.state.loader) {
       images = data.length ? data.map((data, id) =>
         <Image url={data} key={id} />) : <NoResults />
-    } 
+    }
     return (
       <div className="container">
         <Search submit={this.performSearch} {...this.props} />
