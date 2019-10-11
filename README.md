@@ -1,1 +1,2 @@
-# techdegree-project-7
+# React-based Flickr Image search 
+A single-page React app that allows users to search Flickr's databse for images.  Images are then displayed beneath the search box.  A "no images found" error is returned for query returning a null response.  A series of buttons a the top of the search bar allow users to toggle through certain pre-populated query choices.  Axios is used to interact with Flickr's API.
